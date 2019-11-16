@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <title>NewsSite</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body style = "margin:0;">
+<div class = "app_wrapper">
+	<div class="navbar">
+	  <h1 class = "title_padding">News Site</h1>
+	  <% array = [["Home","#","fas fa-home",""],["Search","#","fas fa-home",""],["Login","/login","fas fa-home","btn btn-primary"] ] %>
+	  <div class="navitem">
+	 	 <!-- <a :href="tab.href"><i :class="tab.icon"> </i></a> -->
+	 	<% x = 0 %>
+	 	<% while (x<array.length) do %>
+	 	<%=  %>
+	  	<%= content_tag :a, array[x][0], :href => array[x][1],:icon =>array[x][2],:class => array[x][3]%>
+	  	 	<% x = x + 1 %>
+
+	   	<%end %>
+
+
+	  </div>
+</div>
+</div>
+<%= yield %>
+
+</body>
+</html>
