@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
     def index
-    	puts "Index"
     end
+
+    
+    def dashboard
+    end
+
+
     def create 
     	@error = "";
     	# Getting the parameters

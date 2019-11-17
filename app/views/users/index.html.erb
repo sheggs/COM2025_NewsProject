@@ -1,13 +1,20 @@
-<%= flash[:error] %>
-<%= 
-cls = "t"
-  if(session[:user_id])
-    puts "hi"
-    cls = "asd"
-    cls
-  end
+
+<%if(session[:user_id])%>
+  <%= redirect_to '/login' %>    
+<%end%>
   
-%>
+
+
+
+
+<% if(flash[:error] != nil)%>
+
+  <div class = "alert alert-danger" style ="margin: 2vh 0.5vw;">Imporantant: <%= flash[:error] %></div>
+<% end %>
+
+
+
+
 <div class = "wrapper">
 <div class = "loginPanel">
 		 <form method = "POST" action = "#">
