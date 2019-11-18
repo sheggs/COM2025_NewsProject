@@ -7,7 +7,16 @@ class UsersController < ApplicationController
     # The users' dashboard to change their name or password or image.
     def dashboard
       @currentUser = User.find_by(id: session[:user_id])
+      @avatar = Avatar.find_by(user_id: @currentUser.id)
     end
+
+
+    # def updateAvatar
+    #   @currentUser = User.find_by(id: session[:user_id])
+    #   avatarData = params[:avatar];
+    #   @currentUser.update_attributes(:avatar => avatarData);
+
+    # end
 
     def login
       user_infohash = params[:user];

@@ -2,17 +2,29 @@
    <script> window.location.href = "/login" </script>
 <%end%>
 
-<%= if(@currentUser.avatar_file_name == nil) 
-	
-end %>
 
 
 
+<h1 id = "dashTitle">Dashboard</h1>
 <div class = "dashboardWrapper">
-	<div class = "imageHolder">
-		
+	<div class = "imageSection">
+		<h1>Avatar</h1>
+		<div class="imageContainer"> <%= image_tag @avatar.avatar.url, :class => "avatar" %>
+			</div>
+		<% if(@currentUser.avatar_file_name == nil)  %>
+		<% end %>
+		<form method="POST" action = "/imageupdate" enctype="multipart/form-data">
+			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
+
+			<label>Upload avatar image</label><br>
+			<input type="file" name="avatar">
+			<input type="submit" value = "Submit">
+		</form>
 	</div>
-	<div class = "userInformation">
-	
+	<div class = "userInformationSection">
+		<h1> User Information </h1>
+		<form method = "POST" action = "/updateUserInformation">
+			
+		</form>
 	</div>
 </div>
