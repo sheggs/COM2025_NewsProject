@@ -24,7 +24,35 @@
 	<div class = "userInformationSection">
 		<h1> User Information </h1>
 		<form method = "POST" action = "/updateUserInformation">
-			
+			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
+
+			<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input type="text" class="form-control" placeholder="Username" name = "user[name]" value = "<%= @currentUser.name%>">
+</div>
+
+			<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input type="text" class="form-control" placeholder="Email" value = "<%= @currentUser.email%>" disabled> 
+</div>
+
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">🔒</span>
+  </div>
+  <input type="password" name = "user[password]" class="form-control" placeholder="Enter Password" >
+</div>
+
+
+
+<input type = "submit" value = "Update Username" class = "btn btn-primary">
+
+
 		</form>
 	</div>
 </div>

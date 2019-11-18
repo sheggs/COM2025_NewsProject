@@ -10,8 +10,24 @@ class UsersController < ApplicationController
       @avatar = Avatar.find_by(user_id: @currentUser.id)
     end
 
+    def logout 
+      session[:user_id] = nil;
+      redirect_to '/login'
+    end
 
-    # def updateAvatar
+    def update
+      @currentUser = User.find_by(id: session[:user_id])
+      @error = ""
+      #Storing paramters in variables for easy access
+      user_infohash = params[:user];
+      name = user_infohash[:name];
+      password = user_infohash[:password];
+      if(  (password == @currentUser.password) and checkValidity(name,"Name")  )
+        logger.debug "REACHED"
+        @currentUser.update_attributes({:name => name, :password => password})
+      end
+    end
+        # def updateAvatar
     #   @currentUser = User.find_by(id: session[:user_id])
     #   avatarData = params[:avatar];
     #   @currentUser.update_attributes(:avatar => avatarData);
