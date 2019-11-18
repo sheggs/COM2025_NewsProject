@@ -9,6 +9,24 @@ class UsersController < ApplicationController
       @currentUser = User.find_by(id: session[:user_id])
     end
 
+    def login
+      user_infohash = params[:user];
+      @user = User.find_by(email: user_infohash[:email])
+      if(@user == nil)
+          flash[:error] = "No records found"
+          redirect_to '/login';
+      else
+        if(@user.password == user_infohash[:password])
+          session[:user_id] = @user.id;
+          redirect_to '/dashboard';
+
+        else
+          flash[:error] = "Wrong password. Check if you have Caps Lock enabled."
+          redirect_to '/login';
+        end
+      end
+    end
+
 
     def create 
     	@error = "";
@@ -17,7 +35,7 @@ class UsersController < ApplicationController
     	#Storing paramters in variables for easy access
     	email = user_infohash[:email];
     	password = user_infohash[:password];
-    	confirm_password = user_infohash[:password2]
+    	confirm_password = user_infohash[:password2];
 
     	# Checking if the user does not exist and if the passwords are equal and if all the fields have more than 5 characters;
     	if( !(userExists(email)) and checkEquality(password,confirm_password) and checkValidity(email,"Email") and checkValidity(password,"Password") and checkValidity(confirm_password, "Confirm Password")  )

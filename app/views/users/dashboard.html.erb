@@ -1,7 +1,13 @@
 <% if(session[:user_id] === nil) %>
    <script> window.location.href = "/login" </script>
 <%end%>
-<%= if(@currentUser.avatar_file_name == nil) puts "hi" end %>
+
+<%= if(@currentUser.avatar_file_name == nil) 
+	
+end %>
+
+
+
 <div class = "dashboardWrapper">
 	<div class = "imageHolder">
 		
