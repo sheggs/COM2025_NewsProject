@@ -35,6 +35,13 @@
 
 	   	<%end %>
 
+	   	<%@queryUser = User.find_by(id: session[:user_id])%>
+	   	<% if(@queryUser != nil) %>
+	   		<%if(@queryUser.admin) %>
+	   			<%= content_tag :a, "Admin Dashboard", :href => "/admin",:icon =>"",:class => ""%>
+
+	   		<%end%>
+	   		<%end%>
 
 	  </div>
 </div>

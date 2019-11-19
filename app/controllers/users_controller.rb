@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
     def index
        @currentUser = User.find_by(id: session[:user_id])
-
     end
 
     # The users' dashboard to change their name or password or image.
@@ -14,6 +13,12 @@ class UsersController < ApplicationController
       session[:user_id] = nil;
       redirect_to '/login'
     end
+
+    # def makeAdmin
+    #   @currentUser = User.find_by(id: session[:user_id])
+    #   @currentUser.update_attributes({:admin => true})
+
+    # end
 
     def update
       @currentUser = User.find_by(id: session[:user_id])
