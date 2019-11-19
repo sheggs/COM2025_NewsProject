@@ -9,6 +9,20 @@ $banner-height:50vh;
 $banner-width:100vw;
 
 $avatar-dimension:100px;
+
+
+@mixin grid{
+
+
+	margin: 10vh auto;
+	display:grid;
+	grid-column-gap: 3rem;
+	padding: 1rem 3rem;
+	border-radius: 10px;
+
+	
+}
+
 .wrapper_breaking{
 	max-width:$container-width;
 	max-height:$container-height;
@@ -75,4 +89,24 @@ img {
 		font-size: 1.3rem;
 
 	}
+}
+.group{
+	padding: 10px 10px;
+}
+.wrapper2{
+	width:100vw !important;
+}
+.grid_wrapper{
+	@include grid;
+	grid-template-areas: 'postForm image';
+
+}
+.form_information{
+	grid-area: postForm;
+}
+.form_image{
+	grid-area:image;
+}
+.submit{
+	padding-left:50%;
 }

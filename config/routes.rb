@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   post '/imageupdate' => 'avatars#create'
   get '/dashboard' => 'users#dashboard'
   post '/updateUserInformation' => 'users#update'
+  get '/admin' => 'posts#newpost'
+  post '/createPost' => 'posts#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
