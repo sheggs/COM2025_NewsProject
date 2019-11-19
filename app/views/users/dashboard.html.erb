@@ -9,10 +9,13 @@
 <div class = "dashboardWrapper">
 	<div class = "imageSection">
 		<h1>Avatar</h1>
-		<div class="imageContainer"> <%= image_tag @avatar.avatar.url, :class => "avatar" %>
+		<div class="imageContainer"> 
+				<% if(@avatar != nil) %>
+	 			<%= image_tag @avatar.avatar.url, :class => "avatar" %>
+	 		<% else %>
+	 			<div class = "avatar"></div>
+	 		<%end%>
 			</div>
-		<% if(@currentUser.avatar_file_name == nil)  %>
-		<% end %>
 		<form method="POST" action = "/imageupdate" enctype="multipart/form-data">
 			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
 

@@ -23,7 +23,11 @@
 	 	<% while (x<array.length) do %>
 	 	<%=  %>
 	 	<% if(array[x][0] == "custom_override") and (session[:user_id] != nil) %>
-	 		<%= image_tag @avatar.avatar.url, :class => "avatar2" %>
+	 		<% if(@avatar != nil) %>
+	 			<%= image_tag @avatar.avatar.url, :class => "avatar2" %>
+	 		<% else %>
+	 			<%= image_tag "grey.jpg", :class => "avatar2" %>
+	 		<%end%>
 	 	<% else %>
 	  	<%= content_tag :a, array[x][0], :href => array[x][1],:icon =>array[x][2],:class => array[x][3]%>
 	   	<%end %>
