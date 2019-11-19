@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/' => 'posts#index'
   get '/login' => 'users#index'
   post '/register' => 'users#create'
   post '/login' => 'users#login'
