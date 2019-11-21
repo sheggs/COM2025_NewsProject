@@ -1,6 +1,14 @@
+
+<% if(flash[:errors] != nil)%>
+	<% flash[:errors].each do |t| %>
+  <div class = "alert alert-danger" style ="margin: 2vh 0.5vw;">Imporantant: <%= t['t'] %> <%= t['msg'] %></div>
+
+	<%end%>
+<% end %>
+
 <div class = "wrapper wrapper2">
 		<div class = "post_form">
-			<form action = '/createPost' method="POST">
+			<form action = '/createPost' method="POST" enctype="multipart/form-data">
 										<h1 style = "width:100%; margin:auto; text-align: center;">New Post</h1><hr>
 
 					<div class = "grid_wrapper">
@@ -22,7 +30,7 @@
 
 			</div>
 			<div class = "form_image group">
-				<input type="file" name="post[avatar]">
+				<input type="file" name="post[banner]">
 			</div>
 				</div>
 				<div class = " submit">

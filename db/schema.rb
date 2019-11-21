@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_122013) do
+ActiveRecord::Schema.define(version: 2019_11_21_134846) do
 
   create_table "avatars", force: :cascade do |t|
     t.integer "user_id"
@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_122013) do
     t.boolean "comment_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "banner_file_name"
+    t.string "banner_content_type"
+    t.integer "banner_file_size"
+    t.datetime "banner_updated_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
