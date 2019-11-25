@@ -34,22 +34,54 @@
   	<div class = "breaking">
   		<b>BREAKING NEWS</b>
   	</div>
-		<div class = "carousel-item active">
-				<div class = "BreakingNewsContainer">
-					<div class = "postContent">
-						<div class = "postTitle">
-							<a href = "#">Something huge happened in XXXX.</a>
+		<% if(@isEmpty)%>
+			aaaaa
+		<%else %>
+			<% x = 0; %>
+			<% @breakingPosts.each do |breaking| %>
+				<% if x == 0 %>
+				<div class = "carousel-item active">
+					<div class = "BreakingNewsContainer">
+						<div class = "postContent">
+							<div class = "postTitle">
+								<a href = "#"><%breaking.title%></a>
+							</div>
+							<div class = "postDescription">
+								<p><% breaking.summary%> </p>
+							</div>
 						</div>
-						<div class = "postDescription">
-							<p>Something Something Something Something Something Something </p>
-						</div>
+					<div class = "creatorAvatar"> <%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
+					<div class = "creatorData"><p><span id = "by">By</span> <%= UsersController.getUserData(breaking.user_id).name %></p> <br><p><%= UsersController.getUserData(breaking.user_id).created_at.strftime("%A %d %B %Y")    %></p></div>
 					</div>
-				<div class = "creatorAvatar"> <%= image_tag "grey.jpg", :class => "creator_avatar" %></div>
-				<div class = "creatorData"><p><span id = "by">By</span> Sheggs.</p> <br><p>August 2nd 2019</p></div>
-			</div>
-			<img class = "d-block w-100" src="https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt= "MainSlide">
-		
-		</div>
+
+					<%= image_tag breaking.banner.url, :class => "d-block w-100" %>
+				</div>
+				<%else%>
+						<div class = "carousel-item">
+							<div class = "BreakingNewsContainer">
+						<div class = "postContent">
+							<div class = "postTitle">
+								<a href = "#"><%breaking.title%></a>
+							</div>
+							<div class = "postDescription">
+								<p><% breaking.summary%> </p>
+							</div>
+						</div>
+					<div class = "creatorAvatar"> <%= image_tag "grey.jpg", :class => "creator_avatar" %></div>
+					<div class = "creatorData"><p><span id = "by">By</span> Sheggs.</p> <br><p>August 2nd 2019</p></div>
+					</div>
+
+					<%= image_tag breaking.banner.url, :class => "d-block w-100" %>
+						</div>
+
+				<% end
+				x =  x + 1; 
+			 end 
+		end%>
+
+
+
+
 		<div class = "carousel-item">
 			<img class = "d-block w-100" src="https://www.solidbackgrounds.com/images/950x350/950x350-dark-liver-horses-solid-color-background.jpg" alt= "MainSlide">
 		</div>
