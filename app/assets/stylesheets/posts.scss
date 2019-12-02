@@ -25,7 +25,13 @@ $avatar-dimension:100px;
 .optionsContainer{
 	padding-top: 5vh;
 }
-
+.carousel-control-prev{
+	z-index: 20;
+}
+.btn{
+	font-size: 1.4rem !important;
+	z-index: 100 !important;
+}
 .wrapper_breaking{
 	max-width:$container-width;
 	max-height:$container-height;

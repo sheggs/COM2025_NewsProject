@@ -28,26 +28,31 @@
  -->
 
 <div class = "wrapper_breaking">
+		<% if(@isEmpty)%>
+		<%else %>
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
   	<div class = "breaking">
   		<b>BREAKING NEWS</b>
   	</div>
-		<% if(@isEmpty)%>
-			aaaaa
-		<%else %>
+						
 			<% x = 0; %>
 			<% @breakingPosts.each do |breaking| %>
+				<% url = "/view?id=" + breaking.id.to_s %>
 				<% if x == 0 %>
 				<div class = "carousel-item active">
 					<div class = "BreakingNewsContainer">
 						<div class = "postContent">
 							<div class = "postTitle">
-								<a href = "#"><%breaking.title%></a>
+
+	 					 	<%= content_tag :a, breaking.title, :href => url,:icon =>"",:class =>""%>
 							</div>
 							<div class = "postDescription">
-								<p><% breaking.summary%> </p>
+								<p><%= breaking.summary%> </p>
+							</div>
+							<div class = "buttonContainer">
+								<a class = "btn btn-primary" href = "#">Read More..</a>
 							</div>
 						</div>
 					<div class = "creatorAvatar"> <%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
@@ -61,14 +66,14 @@
 							<div class = "BreakingNewsContainer">
 						<div class = "postContent">
 							<div class = "postTitle">
-								<a href = "#"><%breaking.title%></a>
+								<a href = "#"><%= content_tag :a, breaking.title, :href => url,:icon =>"",:class =>""%></a>
 							</div>
 							<div class = "postDescription">
-								<p><% breaking.summary%> </p>
+								<p><%= breaking.summary%> </p>
 							</div>
 						</div>
-					<div class = "creatorAvatar"> <%= image_tag "grey.jpg", :class => "creator_avatar" %></div>
-					<div class = "creatorData"><p><span id = "by">By</span> Sheggs.</p> <br><p>August 2nd 2019</p></div>
+					<div class = "creatorAvatar"><%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
+					<div class = "creatorData"><p><span id = "by">By</span> <%= UsersController.getUserData(breaking.user_id).name %></p> <br><p><%= UsersController.getUserData(breaking.user_id).created_at.strftime("%A %d %B %Y")    %></p></div>
 					</div>
 
 					<%= image_tag breaking.banner.url, :class => "d-block w-100" %>
@@ -79,18 +84,6 @@
 			 end 
 		end%>
 
-
-
-
-		<div class = "carousel-item">
-			<img class = "d-block w-100" src="https://www.solidbackgrounds.com/images/950x350/950x350-dark-liver-horses-solid-color-background.jpg" alt= "MainSlide">
-		</div>
-		<div class = "carousel-item">
-			<img class = "d-block w-100" src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-davys-grey-solid-color-background.jpg" alt= "MainSlide">
-		</div>
-		<div class = "carousel-item">
-			<img class = "d-block w-100" src="https://www.solidbackgrounds.com/images/950x350/950x350-green-x11-gui-green-solid-color-background.jpg" alt= "MainSlide">
-		</div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

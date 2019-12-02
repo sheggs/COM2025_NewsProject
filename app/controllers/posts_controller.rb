@@ -8,6 +8,11 @@ class PostsController < ApplicationController
 	end
 	def newpost
 	end
+	def view
+		logger.debug params[:id];
+		@selectedPost = Post.find_by(id: params[:id])
+		
+	end
 	def create
 		parameters = params[:post]
 		logger.debug parameters;

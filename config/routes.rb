@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'users#dashboard'
   post '/updateUserInformation' => 'users#update'
   get '/admin' => 'posts#newpost'
+  get '/view' => 'posts#view'
   post '/createPost' => 'posts#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
