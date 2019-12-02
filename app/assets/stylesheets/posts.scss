@@ -10,7 +10,9 @@ $banner-width:100vw;
 
 $avatar-dimension:100px;
 
-
+.wrapper{
+	box-shadow: 0;
+}
 @mixin grid{
 
 
@@ -21,6 +23,16 @@ $avatar-dimension:100px;
 	border-radius: 10px;
 
 	
+}
+@mixin robotoFont($size){
+	font-family: 'Roboto', sans-serif;
+    font-weight:$size;
+}
+.postWrapper{
+	margin:auto;
+	h1{
+		@include robotoFont(900);
+	}
 }
 .optionsContainer{
 	padding-top: 5vh;
@@ -71,8 +83,7 @@ img {
 .creatorData{
 	line-height: 5px;
 	font-size: 1.4rem;
-    font-family: 'Roboto', sans-serif;
-    font-weight:900;
+    @include robotoFont(900);
 	color: white;
 	margin-top: calc(#{$banner-height} - 10vh);
 	margin-left: calc(70vw + 105px) ;
@@ -91,8 +102,7 @@ img {
 		color:white;
 		text-decoration: none;
 		font-size: 3rem;
-    	font-family: 'Roboto', sans-serif;
- 	  	font-weight:700;
+    	@include robotoFont(700);
 	}
 	p{
 		font-size: 1.3rem;

@@ -1,4 +1,18 @@
 <% if @selectedPost == nil%>
 	<script> window.location.href = "/" </script>
-
 <%end%>
+<% creator = UsersController.getUserData(@selectedPost.user_id) %>
+<div class = "breaking" style = "width:100vw; margin-bottom:100vh;">
+  	<b>BREAKING NEWS</b>
+ </div>
+ <br>
+<div class = "wrapper" style = "margin: 0;display: block;">
+	<div class = "postWrapper " style = "box-shadow: 0px 0px;">
+		<h1><%= @selectedPost.title %></h1>
+		<div class = "contentCreator">
+			<%= creator.name %>
+			<%= content_tag :p, creator.name,:class =>""%>
+		</div>
+	</div>
+</div>
+

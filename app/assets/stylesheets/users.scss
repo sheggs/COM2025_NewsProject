@@ -38,7 +38,7 @@
 	border-radius: 100px;
 }
 
-.wrapper{
+.wrapperGrid{
 	@include grid;
 	grid-template-areas: 'login register';
 }

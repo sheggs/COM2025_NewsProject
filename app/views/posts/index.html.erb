@@ -52,7 +52,7 @@
 								<p><%= breaking.summary%> </p>
 							</div>
 							<div class = "buttonContainer">
-								<a class = "btn btn-primary" href = "#">Read More..</a>
+								<a class = "btn btn-primary" href = "#" style="z-index: 100;">Read More..</a>
 							</div>
 						</div>
 					<div class = "creatorAvatar"> <%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
@@ -65,13 +65,16 @@
 						<div class = "carousel-item">
 							<div class = "BreakingNewsContainer">
 						<div class = "postContent">
-							<div class = "postTitle">
-								<a href = "#"><%= content_tag :a, breaking.title, :href => url,:icon =>"",:class =>""%></a>
+					<div class = "postTitle">
+
+	 					 	<%= content_tag :a, breaking.title, :href => url,:icon =>"",:class =>""%>
 							</div>
 							<div class = "postDescription">
 								<p><%= breaking.summary%> </p>
 							</div>
-						</div>
+							<div class = "buttonContainer">
+								<%= content_tag :a, "Read More", :href => url,:icon =>"",:class =>"btn btn-primary", :style => "z-index:400;"%>
+							</div>
 					<div class = "creatorAvatar"><%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
 					<div class = "creatorData"><p><span id = "by">By</span> <%= UsersController.getUserData(breaking.user_id).name %></p> <br><p><%= UsersController.getUserData(breaking.user_id).created_at.strftime("%A %d %B %Y")    %></p></div>
 					</div>
@@ -85,8 +88,8 @@
 		end%>
 
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style = "">
+    <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
     <span class="sr-only">Previous</span>
   </a>
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
