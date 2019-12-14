@@ -2,17 +2,24 @@
 	<script> window.location.href = "/" </script>
 <%end%>
 <% creator = UsersController.getUserData(@selectedPost.user_id) %>
+<% if (@selectedPost.important == true) %>
 <div class = "breaking" style = "width:100vw; margin-bottom:100vh;">
   	<b>BREAKING NEWS</b>
  </div>
- <br>
+ <%end%>
 <div class = "wrapper" style = "margin: 0;display: block;">
-	<div class = "postWrapper " style = "box-shadow: 0px 0px;">
-		<h1><%= @selectedPost.title %></h1>
+	<div class = "postHeader " style = 'box-shadow: 0px 0px; background-image: url("<%= @selectedPost.banner.url %>")'>
+		<div class = "postTitle">
+			<h1><%= @selectedPost.title %></h1>
+		</div>
 		<div class = "contentCreator">
-			<%= creator.name %>
-			<%= content_tag :p, creator.name,:class =>""%>
+			<p class = "content_creator" id = "by">By: <%= creator.name %></p>
+			<p class = "creation_date"><%= UsersController.getUserData(@selectedPost.user_id).created_at.strftime("%A %d %B %Y") %></p>
+
 		</div>
 	</div>
-</div>
 
+	<div class = "postContent">
+		<p><%= @selectedPost.body %></p>
+	</div>
+</div>

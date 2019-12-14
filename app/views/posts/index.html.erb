@@ -103,7 +103,7 @@
 
 <% index = 0 %>
 <% @normalPosts.each do |post| %>
-
+<% url = "/view?id=" + post.id.to_s %>
 <div class = "cardWrapper">
 	<div class="cardcontainer" >
 	      <div class="card_outline">
@@ -125,13 +125,14 @@
 	              text = "<%= post.summary %>"
 	              visible="false"
 	            ><%= post.summary %></h1>
-	          </div>
+	          </div><br>
 	          <button onclick="hide(<%= index %>)">Hide Description</button>
-	          <a class = "fab fa-github fa-2x fa-button-custom" :href ="card['project_githublink']"></a>
+
+	          <a class = "btn btn-primary" href ="<%= url %>">Read More</a>
 	        </div>
-	        </div>
-	      </div>
+	    </div>
 	</div>
+</div>
 <% index = index + 1 %>
 <% end %>
 </div>

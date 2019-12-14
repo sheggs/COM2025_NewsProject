@@ -18,8 +18,12 @@ class UsersController < ApplicationController
     end
     # The users' dashboard to change their name or password or image.
     def dashboard
-      @currentUser = current_user
-      @avatar = Avatar.find_by(user_id: @currentUser.id)
+      if(current_user != nil)
+        @currentUser = current_user
+        @avatar = Avatar.find_by(user_id: current_user.id)
+      else
+        redirect_to '/'
+      end
     end
 
     def logout 
@@ -41,22 +45,18 @@ class UsersController < ApplicationController
 
 
     def update
-      @currentUser = current_user
       @error = ""
-      logger.debug current_user.email
-      logger.debug "SKKK"
       #Storing paramters in variables for easy access
       user_infohash = params[:user];
       name = user_infohash[:name];
       password = user_infohash[:password];
-            logger.debug "??"
-
-        logger.debug @currentUser.valid_password?(password)
-
-      if(  (password == @currentUser.password) and checkValidity(name,"Name")  )
-        logger.debug "REACHED"
-        @currentUser.update_attributes({:name => name, :password => password})
-      end
+        if(current_user.valid_password?(password) and  checkValidity(name,"Name"))
+          current_user.update_attributes({:name => name})
+        end
+      # if(  (password == @currentUser.password) and checkValidity(name,"Name")  )
+      #   logger.debug "REACHED"
+      #   @currentUser.update_attributes({:name => name, :password => password})
+      # end
     end
         # def updateAvatar
     #   @currentUser = User.find_by(id: session[:user_id])
