@@ -1,5 +1,9 @@
 class PostsController < ApplicationController
 	include PostsHelper
+
+	def self.getPost(post_id)
+ 		return Post.find_by(id: post_id)
+    end
 	def index
 		@breakingPosts = getBreakingPosts;
 		@isEmpty = (@breakingPosts.count <= 0);
@@ -13,9 +17,13 @@ class PostsController < ApplicationController
 		@selectedPost = Post.find_by(id: params[:id])
 		
 	end
-
+    # GET /posts/1
+    # GET /posts/1.json
+    def show
+    	@post = Post.find_by(id: 2)
+    end
 	def new
-		Post.new;
+  		@post = Post.new(params[:post])
 	end
 	def create
 		parameters = params[:post]

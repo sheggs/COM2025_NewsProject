@@ -1,0 +1,21 @@
+<div class = "displayComments">
+		<p> Comments: </p>
+		<% post.comment.each do |g| %>
+			<div class = "commentContainer">
+
+					<form action = "/comment/like" method = "POST">
+						<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
+						<input type = "hidden" value = "<%= g.id %>" name = "comment_id">
+
+						<input type = "submit" value = "Like" class ="like btn " style = "background-color: green;" >
+					</form>
+					<% if(current_user.id == g.user_id) %>
+					<%= link_to 'Destroy', 'posts/'+ post.id.to_s + '/comments/'+ g.id.to_s, class: "like btn", style: "background-color:red;", method: :delete, data: { confirm: 'Are you sure?' } %>
+		
+					<% end %>
+				<p><%= image_tag AvatarsController.getAvatar(g.user_id), :class => "comment_avatar" %><%= UsersController.getUserData(g.user_id).name %> :  <%= g.comment %></p>
+
+			</div>
+		<% end %>
+	</div>
+

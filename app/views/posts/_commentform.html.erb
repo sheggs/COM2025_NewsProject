@@ -1,0 +1,11 @@
+	<div class = "comment-form">
+		<form method="POST" action = "/comment/new">
+			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
+			<label>New Comment</label>
+			<div class = "textarea-container">
+				<input type = "hidden" name = "comment[post_id]" value = "<%= post.id %>">
+				<textarea class="form-control" name = "comment[comment]"></textarea>
+			</div>
+			  <input type = "submit" value = "Post Comment" class = "btn btn-danger">
+		</form> 
+	</div>

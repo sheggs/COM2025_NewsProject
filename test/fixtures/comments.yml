@@ -2,12 +2,12 @@
 
 one:
   comment: MyString
-  user_id: one
-  post_id: one
+  user: one
+  post: one
   likes: 1
 
 two:
   comment: MyString
-  user_id: two
-  post_id: two
+  user: two
+  post: two
   likes: 1
