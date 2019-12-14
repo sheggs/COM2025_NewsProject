@@ -1,5 +1,5 @@
 
-<%if(session[:user_id])%>
+<%if(current_user)%>
    <script> window.location.href = "/dashboard" </script>
 <%end%>
   
@@ -17,10 +17,11 @@
 
 <div class = "wrapper wrapperGrid">
 <div class = "loginPanel">
-		 <form method = "POST" action = "/login">
-        <input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
 
-		 		<div class = "loginWrapper">
+		<form method = "POST" action = "/users/sign_in">
+      <input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
+
+		 	<div class = "loginWrapper">
 	<h1> Login: </h1>
 
 <div class="input-group mb-3 inputContainer">
@@ -36,6 +37,12 @@
   </div>
   <input type="password" name = "user[password]" class="form-control" placeholder="Enter Password" >
 </div>
+<div class="input-group mb-2">
+
+  <label>Remember Me: </label>
+  <input type="checkbox" name = "user[remember_me]" class="form-control" >
+</div>
+
 <div class = "submitContainer">
 <input type = "submit" value = "Submit" class = "btn btn-primary">
 </div>
@@ -47,7 +54,7 @@
 
 
   <div class = "registrationPanel">
-         <form method = "POST" action = "/register">
+         <form method = "POST" action = "/users">
           <input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
         <div class = "registrationWrapper">
   <h1> Register: </h1>
@@ -69,7 +76,7 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">🔒</span>
   </div>
-  <input type="password" name = "user[password2]" class="form-control" placeholder="Confirm Password" >
+  <input type="password" name = "user[password_confirmation]" class="form-control" placeholder="Confirm Password" >
 </div>
 <div class = "submitContainer">
 <input type = "submit" value = "Submit" class = "btn btn-primary">

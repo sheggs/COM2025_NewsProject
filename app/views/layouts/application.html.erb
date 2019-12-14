@@ -13,29 +13,27 @@
 <div class = "app_wrapper">
 	<div class="navbar">
 	  <h1 class = "title_padding">News Site</h1>
-	  <% array = [["Home","/","fas fa-home",""],["Search","#","fas fa-home",""],["Login","/login","fas fa-home","btn btn-primary"] ] %>
-	  <% if(session[:user_id] != nil) %>
-	  <% array = [["Home","/","fas fa-home",""],["Search","#","fas fa-home",""],["Dashboard","/Dashboard","",""],["custom_override","","",""],["Logout","/logout","fas fa-home","btn btn-danger"] ] %>
+	  <% array = [["Home","/","fas fa-home","",""],["Search","#","fas fa-home","",""],["Login","/login","fas fa-home","btn btn-primary",""] ] %>
+	  <% if(current_user != nil) %>
+	  <% array = [["Home","/","fas fa-home","",""],["Search","#","fas fa-home","",""],["Dashboard","/dashboard","","",""],["custom_override","","","",""],["Logout","/users/sign_out","fas fa-home","btn btn-danger","delete"] ] %>
 	  <%end%>
 	  <div class="navitem">
 	 	 <!-- <a :href="tab.href"><i :class="tab.icon"> </i></a> -->
 	 	<% x = 0 %>
 	 	<% while (x<array.length) do %>
-	 	<%=  %>
-	 	<% if(array[x][0] == "custom_override") and (session[:user_id] != nil) %>
+	 	<% if(array[x][0] == "custom_override") and (current_user != nil) %>
 	 		<% if(@avatar != nil) %>
 	 			<%= image_tag @avatar.avatar.url, :class => "avatar2" %>
 	 		<% else %>
 	 			<%= image_tag "grey.jpg", :class => "avatar2" %>
 	 		<%end%>
 	 	<% else %>
-	  	<%= content_tag :a, array[x][0], :href => array[x][1],:icon =>array[x][2],:class => array[x][3]%>
+	  	<%= content_tag :a, array[x][0], :href => array[x][1],:icon =>array[x][2],:class => array[x][3], :"data-method" => array[x][4]%>
 	   	<%end %>
 	  	 	<% x = x + 1 %>
 
 	   	<%end %>
-
-	   	<%@queryUser = User.find_by(id: session[:user_id])%>
+	   	<%@queryUser = User.find_by(id: current_user)%>
 	   	<% if(@queryUser != nil) %>
 	   		<%if(@queryUser.admin) %>
 	   			<%= content_tag :a, "Admin Dashboard", :href => "/admin",:icon =>"",:class => ""%>
@@ -46,6 +44,8 @@
 	  </div>
 </div>
 </div>
+
+
 <%= yield %>
 
 </body>

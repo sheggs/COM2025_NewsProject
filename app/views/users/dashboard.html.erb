@@ -1,4 +1,4 @@
-<% if(session[:user_id] === nil) %>
+<% if(current_user === nil) %>
    <script> window.location.href = "/login" </script>
 <%end%>
 
@@ -31,7 +31,7 @@
 
 			<div class="input-group mb-3">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">@</span>
+    <span class="input-group-text" id="basic-addon1">Username: </span>
   </div>
   <input type="text" class="form-control" placeholder="Username" name = "user[name]" value = "<%= @currentUser.name%>">
 </div>

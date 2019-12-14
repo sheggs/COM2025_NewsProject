@@ -15,7 +15,14 @@
 
 	
 }
-
+@mixin panelLayout{
+	min-width:20vw;
+	max-width:60vw;
+	margin: 10vh auto;
+	padding: 1rem 3rem;
+	border-radius: 10px;
+	box-shadow: 0px 0px 1.2rem black;
+}
 .imageContainer{
 	padding: 8vh 0;
 }
@@ -41,6 +48,14 @@
 .wrapperGrid{
 	@include grid;
 	grid-template-areas: 'login register';
+}
+.wrapperPanel{
+	@include panelLayout;
+}
+.centerInternals{
+	max-width: 100vw;
+	margin:auto;
+	padding:auto;
 }
 .dashboardWrapper{
 	@include grid;

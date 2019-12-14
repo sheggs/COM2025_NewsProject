@@ -1,9 +1,9 @@
-require "time"
 class PostsController < ApplicationController
-
+	include PostsHelper
 	def index
-		@breakingPosts = Post.where(important: true);
+		@breakingPosts = getBreakingPosts;
 		@isEmpty = (@breakingPosts.count <= 0);
+		@normalPosts = getNormalPosts;
 		# @breakingPosts.count get the total returns
 	end
 	def newpost
@@ -13,20 +13,43 @@ class PostsController < ApplicationController
 		@selectedPost = Post.find_by(id: params[:id])
 		
 	end
+
+	def new
+		Post.new;
+	end
 	def create
 		parameters = params[:post]
 		logger.debug parameters;
-		@post = Post.new({:title => parameters[:title],:summary => parameters[:description],:body => parameters[:text], :user_id => session[:user_id], :banner => parameters[:banner], :comment_enabled => checkboxBoolean(parameters[:comment]), :important => checkboxBoolean(parameters[:important])})
+		@post = Post.new({:title => parameters[:title],:summary => parameters[:description],:body => parameters[:text], :user_id => current_user.id, :banner => parameters[:banner], :comment_enabled => checkboxBoolean(parameters[:comment]), :important => checkboxBoolean(parameters[:important])})
 
-		@post.save
-		if @post.errors.any?
-			flash[:errors] =[]
-			@post.errors.each do |t,msg|
-				flash[:errors].push({:t => t, :msg => msg})
+		# @post.save
+		# if @post.errors.any?
+		# 	flash[:errors] =[]
+		# 	@post.errors.each do |t,msg|
+		# 		flash[:errors].push({:t => t, :msg => msg})
+		# 	end
+		# end
+
+		respond_to do |format|
+			if(@post.save)
+				format.html { flash[:success] = "Post created successfully"
+					@breakingPosts = getBreakingPosts
+					render :index }
+				format.json {render :show, status: :created, location: @post}
+			else
+				format.html{
+					if @post.errors.any?
+						flash[:errors] =[]
+						@post.errors.each do |t,msg|
+							flash[:errors].push({:t => t, :msg => msg})
+						end
+					end
+					render :newpost }
+				format.json {render json: @post.errors, status: :unprocessable_entity}
+
 			end
 		end
-
-		redirect_to '/admin'
+		#redirect_to '/admin'
 	end
 
 

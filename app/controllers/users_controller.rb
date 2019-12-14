@@ -1,14 +1,24 @@
 class UsersController < ApplicationController
     def index
-       @currentUser = User.find_by(id: session[:user_id])
+       @currentUser = current_user
     end
+
+
+    def self.getAvatar(user_id)
+      if(Avatar.find_by(user_id: user_id) != nil)
+        return Avatar.find_by(user_id: user_id);
+      end
+      return "grey.jpg";
+    end
+
+
 
     def self.getUserData(user_id)
       return User.find_by(id: user_id)
     end
     # The users' dashboard to change their name or password or image.
     def dashboard
-      @currentUser = User.find_by(id: session[:user_id])
+      @currentUser = current_user
       @avatar = Avatar.find_by(user_id: @currentUser.id)
     end
 
@@ -17,19 +27,32 @@ class UsersController < ApplicationController
       redirect_to '/login'
     end
 
+    # def updateAvatar
+    #   logger.debug "hi"
+    #   image_data = params[:avatar]
+    #  # logger.debug current_user.avatar.url
+    # end
+
     # def makeAdmin
     #   @currentUser = User.find_by(id: session[:user_id])
     #   @currentUser.update_attributes({:admin => true})
 
     # end
 
+
     def update
-      @currentUser = User.find_by(id: session[:user_id])
+      @currentUser = current_user
       @error = ""
+      logger.debug current_user.email
+      logger.debug "SKKK"
       #Storing paramters in variables for easy access
       user_infohash = params[:user];
       name = user_infohash[:name];
       password = user_infohash[:password];
+            logger.debug "??"
+
+        logger.debug @currentUser.valid_password?(password)
+
       if(  (password == @currentUser.password) and checkValidity(name,"Name")  )
         logger.debug "REACHED"
         @currentUser.update_attributes({:name => name, :password => password})
@@ -42,55 +65,55 @@ class UsersController < ApplicationController
 
     # end
 
-    def login
-      user_infohash = params[:user];
-      @user = User.find_by(email: user_infohash[:email])
-      if(@user == nil)
-          flash[:error] = "No records found"
-          redirect_to '/login';
-      else
-        if(@user.password == user_infohash[:password])
-          session[:user_id] = @user.id;
-          redirect_to '/dashboard';
+    # def login
+    #   user_infohash = params[:user];
+    #   @user = User.find_by(email: user_infohash[:email])
+    #   if(@user == nil)
+    #       flash[:error] = "No records found"
+    #       redirect_to '/login';
+    #   else
+    #     if(@user.password == user_infohash[:password])
+    #       session[:user_id] = @user.id;
+    #       redirect_to '/dashboard';
 
-        else
-          flash[:error] = "Wrong password. Check if you have Caps Lock enabled."
-          redirect_to '/login';
-        end
-      end
-    end
+    #     else
+    #       flash[:error] = "Wrong password. Check if you have Caps Lock enabled."
+    #       redirect_to '/login';
+    #     end
+    #   end
+    # end
 
 
-    def create 
-    	@error = "";
-    	# Getting the parameters
-    	user_infohash = params[:user];
-    	#Storing paramters in variables for easy access
-    	email = user_infohash[:email];
-    	password = user_infohash[:password];
-    	confirm_password = user_infohash[:password2];
+    # def create 
+    # 	@error = "";
+    # 	# Getting the parameters
+    # 	user_infohash = params[:user];
+    # 	#Storing paramters in variables for easy access
+    # 	email = user_infohash[:email];
+    # 	password = user_infohash[:password];
+    # 	confirm_password = user_infohash[:password2];
 
-    	# Checking if the user does not exist and if the passwords are equal and if all the fields have more than 5 characters;
-    	if( !(userExists(email)) and checkEquality(password,confirm_password) and checkValidity(email,"Email") and checkValidity(password,"Password") and checkValidity(confirm_password, "Confirm Password")  )
-    		#Creating the user
+    # 	# Checking if the user does not exist and if the passwords are equal and if all the fields have more than 5 characters;
+    # 	if( !(userExists(email)) and checkEquality(password,confirm_password) and checkValidity(email,"Email") and checkValidity(password,"Password") and checkValidity(confirm_password, "Confirm Password")  )
+    # 		#Creating the user
 
-    		 @user = User.new({:email => user_infohash[:email], :password => user_infohash[:email], :admin => false});
-    		 # If the user is successfully created
-    		 if(@user.save)
-    		 	logger.debug "User created"
-    		 	session[:user_id] = @user.id;
-    		 	#Add session here
-    		 else
-    		 	#Flash Error
-    		 end
-    	else
-    		#Flash Error Email exists or password fields are not the same or less than 5 characters
-    		flash[:error] = @error
-    		redirect_to '/login'
+    # 		 @user = User.new({:email => user_infohash[:email], :password => user_infohash[:email], :admin => false});
+    # 		 # If the user is successfully created
+    # 		 if(@user.save)
+    # 		 	logger.debug "User created"
+    # 		 	session[:user_id] = @user.id;
+    # 		 	#Add session here
+    # 		 else
+    # 		 	#Flash Error
+    # 		 end
+    # 	else
+    # 		#Flash Error Email exists or password fields are not the same or less than 5 characters
+    # 		flash[:error] = @error
+    # 		redirect_to '/login'
 
-    	end
+    # 	end
 
-    end
+    # end
 
 
 

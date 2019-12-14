@@ -26,6 +26,9 @@
 </div>
 </div>
  -->
+<% if(flash[:success] != nil) %>
+    	<div class = "alert alert-danger" style ="margin: 2vh 0.5vw;"><%= flash[:success] %></div>
+<% end %>
 
 <div class = "wrapper_breaking">
 		<% if(@isEmpty)%>
@@ -55,7 +58,7 @@
 								<a class = "btn btn-primary" href = "#" style="z-index: 100;">Read More..</a>
 							</div>
 						</div>
-					<div class = "creatorAvatar"> <%= image_tag AvatarsController.getAvatar(breaking.user_id).avatar.url, :class => "creator_avatar" %></div>
+					<div class = "creatorAvatar"> <%= image_tag AvatarsController.getAvatar(breaking.user_id), :class => "creator_avatar" %></div>
 					<div class = "creatorData"><p><span id = "by">By</span> <%= UsersController.getUserData(breaking.user_id).name %></p> <br><p><%= UsersController.getUserData(breaking.user_id).created_at.strftime("%A %d %B %Y")    %></p></div>
 					</div>
 
@@ -97,4 +100,38 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
+<% index = 0 %>
+<% @normalPosts.each do |post| %>
+
+<div class = "cardWrapper">
+	<div class="cardcontainer" >
+	      <div class="card_outline">
+	        <div
+	          class="imageContainer"
+	          style='background-image: url("<%= post.banner.url  %>")'>
+	 			
+	        </div>
+	        <div class="information">
+	          <div class="card-title">
+	            <h1><%= post.title %></h1>
+	          </div>
+
+	          <div class="card-project-description">
+	            <h1
+	              class="card-description"
+	              hide_value = "true"
+	              hide_index = "<%= index %>"
+	              text = "<%= post.summary %>"
+	              visible="false"
+	            ><%= post.summary %></h1>
+	          </div>
+	          <button onclick="hide(<%= index %>)">Hide Description</button>
+	          <a class = "fab fa-github fa-2x fa-button-custom" :href ="card['project_githublink']"></a>
+	        </div>
+	        </div>
+	      </div>
+	</div>
+<% index = index + 1 %>
+<% end %>
 </div>
