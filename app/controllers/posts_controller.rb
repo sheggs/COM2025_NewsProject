@@ -51,11 +51,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    logger.debug "hi"
 
     respond_to do |format|
       if(checkboxBoolean(post_params[:delete]) == true)
-        logger.debug "sup"
         @post.delete
         @post.save
           format.js{

@@ -35,10 +35,8 @@ class CommentsController < ApplicationController
      message = "unliked"
 
     else
-      logger.debug "SSS"
-      logger.debug @comment.likes.to_s
+
       @comment.likes = @comment.likes + 1
-            logger.debug @comment.likes.to_s
 
       CommentLikesController.setLog(current_user,@comment);
 
@@ -55,7 +53,6 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    logger.debug "called"
     @comment = Comment.new(comment_params)
 
     respond_to do |format|
