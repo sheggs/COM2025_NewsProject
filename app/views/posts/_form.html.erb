@@ -41,10 +41,13 @@
   </div>
 </div>
       <div class = "form_image group">
-
+  <%userid = 1 %>
+  <% if(current_user != nil) %>
+    <% userid = current_user.id %>
+  <%end %>
   <div class="group">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id, value:current_user.id %>
+    <%= form.text_field :user_id, value:userid%>
   </div>
 
 

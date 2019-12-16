@@ -3,6 +3,8 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @post = posts(:one)
+    @user = User.create!({:email => "test@account.com", :admin => true, :password => "111111", :password_confirmation => "111111" })
+    @user.save
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create post" do
     assert_difference('Post.count') do
-      post posts_url, params: { post: { body: @post.body, comment_enabled: @post.comment_enabled, important: @post.important, summary: @post.summary, title: @post.title, user_id: @post.user_id } }
+      post posts_url, params: { post: { body: @post.body, comment_enabled: @post.comment_enabled, important: @post.important, summary: @post.summary, title: @post.title, user_id: @user.id  } }
     end
 
     assert_redirected_to post_url(Post.last)

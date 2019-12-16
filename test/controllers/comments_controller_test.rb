@@ -2,11 +2,12 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @post = posts(:one)
     @comment = comments(:one)
   end
 
   test "should get index" do
-    get comments_url
+    get post_comments
     assert_response :success
   end
 
