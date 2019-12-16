@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
   # GET /comments
   # GET /comments.json
   def index
@@ -10,7 +9,6 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
-
   end
 
   # GET /comments/new
@@ -22,15 +20,43 @@ class CommentsController < ApplicationController
   def edit
   end
 
-  # POST /comments
-  # POST /comments.json
-  def create
-    @comment = Comment.new({:user_id => current_user.id, :post_id => comment_params[:post_id], :comment => comment_params[:comment]})
+  def likepost
+    @comment = Comment.find_by(id: like_param)
 
+    message = "liked"
+    if(CommentLikesController.alreadyLiked(current_user.id, @comment.id))
+      commentLikes = CommentLikesController.getModel(current_user,@comment);
+      commentLikes.destroy
+      @comment.likes = @comment.likes - 1
+     message = "unliked"
+
+    else
+      logger.debug "SSS"
+      logger.debug @comment.likes.to_s
+      @comment.likes = @comment.likes + 1
+            logger.debug @comment.likes.to_s
+
+      CommentLikesController.setLog(current_user,@comment);
+
+
+    end
     respond_to do |format|
       if @comment.save
           format.html { @selectedPost = PostsController.getPost(@comment.post_id)
-          redirect_to '/view?id=' + @comment.post_id.to_s, notice: 'Comment was successfully created.' }
+          redirect_to '/posts/' + @comment.post_id.to_s, notice: 'Comment was successfully ' + message + '.' }
+          format.json { render :show, status: :created, location: @comment }
+      end
+    end
+  end
+  # POST /comments
+  # POST /comments.json
+  def create
+    logger.debug "called"
+    @comment = Comment.new(comment_params)
+
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to '/posts/' + comment_params[:post_id], notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
@@ -56,10 +82,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment = Comment.find_by(id: destory_param)
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to '/view?id=' + @comment.post_id.to_s, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,9 +97,13 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:comment,:post_id)
+      params.require(:comment).permit(:comment, :post_id,:user_id)
     end
-    def destory_param
+       def destory_param
        params.require(:id)
+    end
+
+    def like_param
+      params.require(:id)
     end
 end

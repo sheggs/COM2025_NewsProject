@@ -1,0 +1,11 @@
+<h2 id = "admin_title"> Administrator Panel </h2>
+<header class = "admin_link_container">
+	<% tabs = [['User Management','/admin/user_management'],['Post Management','/admin/post_management'],['Create Post','/posts/new']] %>
+	<% x = 0; %>
+	<% while(x < tabs.length) %>
+		<div class = "admin_link_wrapper">
+			<%= content_tag :a, tabs[x][0], :href => tabs[x][1], :class => "admin_index_links"%>
+		</div>
+		<% x = x + 1 %>
+	<% end %>
+</header>

@@ -1,37 +1,36 @@
-
-<p>
-  <strong>Article:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Post:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
-
-<h2> Comments </h2>
-<% @post.comment.each do |comment| %>
-<p>Commentor : <%= comment.user_id %> </p>
-<p>Commentor : <%= comment.comment %> </p>
+<% if @post == nil%>
+<!--  <script> window.location.href = "/" </script> -->
+<%else%>
+<%if (notice != nil) %>
+<%= content_tag(:div, notice, class: "alert alert-primary") %>
 <% end %>
+<% creator = UsersController.getUserData(@post.user_id) %>
+<% if (@post.important == true) %>
+<div class = "breaking" style = "width:100vw; margin-bottom:100vh;">
+    <b>BREAKING NEWS</b>
+ </div>
+ <%end%>
+<div class = "wrapper" style = "margin: 0;display: block;">
+  <div class = "postHeader " style = 'box-shadow: 0px 0px; background-image: url("<%= @post.banner.url %>")'>
+    <div class = "postViewTitle">
+      <h1><%= @post.title %></h1>
+    </div>
+    <div class = "contentCreator">
+      <p class = "content_creator" id = "by">By: <%= creator.name %></p>
+      <p class = "creation_date"><%= UsersController.getUserData(@post.user_id).created_at.strftime("%A %d %B %Y") %></p>
 
-<h2>Add a comment:</h2>
-<%= form_for([@post, @post.comment.build]) do |f| %>
+    </div>
+  </div>
 
-  <p>
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+  <div class = "postViewContent">
+    <p><%= @post.body %></p>
+  </div>
+
+  <% if(current_user != nil) %>
+    <%= render "commentform", post: @post%>
+  <% end %>
+  
+  <%= render "comments", post: @post%>
+  
+</div>
 <% end %>
- 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', post_path %>
- 

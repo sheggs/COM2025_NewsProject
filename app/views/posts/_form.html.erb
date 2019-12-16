@@ -1,0 +1,73 @@
+<% if(flash[:errors] != nil)%>
+  <% flash[:errors].each do |t| %>
+  <div class = "alert alert-danger" style ="margin: 2vh 0.5vw;">Imporantant: <%= t[:t] %> <%= t[:msg] %></div>
+
+  <%end%>
+<% end %>
+<% userid = 0 %>
+<% if(current_user != nil) %>
+  <% userid = current_user.id %>
+<% end %>
+<div class = "wrapper wrapper2" style = "padding:10px 10px">
+  <div class = "post_form" style = " box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);">
+
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+          <div class = "grid_wrapper">
+
+          <div class = "form_information">
+
+  <div class="group">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div class="group">
+    <%= form.label :summary %>
+    <%= form.text_field :summary %>
+  </div>
+  <div class="group">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+</div>
+      <div class = "form_image group">
+
+  <div class="group">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, value:current_user.id %>
+  </div>
+
+
+   <div class="group">
+    <%= form.label :banner %>
+    <%= form.file_field :banner %>
+  </div>
+  <div class="group">
+    <%= form.label :important %>
+    <%= form.check_box :important %>
+  </div>
+
+
+
+  <div class="group">
+    <%= form.label :comment_enabled %>
+    <%= form.check_box :comment_enabled %>
+  </div>
+</div>
+</div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>
+</div>

@@ -30,7 +30,14 @@ class UsersController < ApplicationController
       session[:user_id] = nil;
       redirect_to '/login'
     end
-
+   def dashboard
+      if(current_user != nil)
+        @currentUser = current_user
+        @avatar = Avatar.find_by(user_id: current_user.id)
+      else
+        redirect_to '/'
+      end
+    end
     # def updateAvatar
     #   logger.debug "hi"
     #   image_data = params[:avatar]
@@ -44,7 +51,7 @@ class UsersController < ApplicationController
     # end
 
 
-    def update
+    def simpleupdate
       @error = ""
       #Storing paramters in variables for easy access
       user_infohash = params[:user];
@@ -57,6 +64,66 @@ class UsersController < ApplicationController
       #   logger.debug "REACHED"
       #   @currentUser.update_attributes({:name => name, :password => password})
       # end
+    end
+
+    def edit
+
+    #   logger.debug("______________")
+    #         logger.debug parameter_update[:admin]
+
+    #   logger.debug "______ start _________"
+
+    # logger.debug checkboxBoolean(parameter_update[:admin])
+  #  logger.debug "___________ ended __________"
+   # logger.debug(parameter_update[:id])
+      @selecteduser = UsersController.getUserData(parameter_update[:id])
+      @selecteduser.name = parameter_update[:name]
+      @selecteduser.email = parameter_update[:email]
+      @selecteduser.admin = checkboxBoolean(parameter_update[:admin])
+
+
+    respond_to do |format|
+      logger.debug(checkboxBoolean(parameter_update[:delete]))
+      if(checkboxBoolean(parameter_update[:delete]) == true)
+        #Cannot delete the user that is logged in.
+        if(@selecteduser.id == current_user.id)
+          format.html {redirect_to selecteduser, notice: "Updated"}
+          format.json {render :show, status: :created, location: selecteduser}
+          format.js{
+            @urgentMessage = "Cannot delete the current logged in object"
+            @respond = "false"
+          flash[:errors] =[]}
+        else
+          @selecteduser.delete
+          @selecteduser.save
+          format.js{
+            @modal = "true"
+          }
+
+        end
+      else
+         if(checkValidity(parameter_update[:name],"name") and @selecteduser.save)
+          format.html {redirect_to selecteduser, notice: "Updated"}
+          format.json {render :show, status: :created, location: selecteduser}
+          format.js{ @urgentMessage = ""
+          @respond = "true"}
+        else
+          format.html{render :newpost }
+          format.json {render json: @post.errors, status: :unprocessable_entity}
+          format.js{
+            flash[:errors] =[]
+            flash[:errors].push({:t => "", :msg => @error})
+              @selecteduser.errors.each do |t,msg|
+                flash[:errors].push({:t => t, :msg => msg})
+              end
+            logger.debug flash[:errors]
+            @urgentMessage = ""
+            @respond = "false"}
+        end
+      end
+       
+    end
+
     end
         # def updateAvatar
     #   @currentUser = User.find_by(id: session[:user_id])
@@ -117,14 +184,17 @@ class UsersController < ApplicationController
 
 
 
-   private def parameter
+   private def parameter_update
+    params.require(:user).permit(:id,:name,:email,:delete,:admin)
+
    end
 
    private def checkValidity(entry,type)
+    @error = ""
    	if(entry.mb_chars.length > 5)
    		return true;
    	else
-   		@error = @error + type + "Field must be greating than 5 characters"
+   		@error = @error + type + " Field must be greating than 5 characters"
    	end
    	return false;
    end
@@ -151,7 +221,13 @@ class UsersController < ApplicationController
    	end
    	return true;
    end
-    
+  private def checkboxBoolean(value)
+      if (value == "1" or value == "on")
+        return true;
+      end
+      return false;
+      
+    end
 
 end
 

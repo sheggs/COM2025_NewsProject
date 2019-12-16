@@ -1,0 +1,59 @@
+// Place all the styles related to the admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.table_container{
+	max-width:100vw;
+	padding:30px 30px;
+	margin: auto;
+}
+#admin_title{
+	padding-top: 20px;
+	text-align: center;
+}
+.admin_index_links{
+	float:left;
+	width: 100%;
+	min-height: 4vh;
+	text-decoration: none;
+	color:black;
+	margin: auto;
+	text-align: center;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding:50px 50px;
+
+}
+.admin_link_container{
+	padding:10px 10px;
+}
+
+.admin_link_wrapper{
+	padding:100px 10px;
+}
+table{
+  display: block;
+
+
+}
+th{
+
+}
+td{
+  margin:0;
+  //width: 59vw;
+  padding:0;
+}
+table tr:nth-child(even){
+  margin:0;
+  //width: 59vw;
+  padding:0;
+  background-color: grey;
+}
+table tr:nth-child(odd){
+  margin:0;
+  //width: 59vw;
+  padding:0;
+  background-color: white;
+}
+th,td{
+  border: 1px solid;
+}

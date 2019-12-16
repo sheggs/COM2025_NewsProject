@@ -1,5 +1,6 @@
 	<div class = "comment-form">
-		<form method="POST" action = "/comment/new">
+		<% url = "/posts/" + params[:id] + "/comments"%>
+ 		<form method="POST" action = "<%= url %>">
 			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
 			<label>New Comment</label>
 			<div class = "textarea-container">

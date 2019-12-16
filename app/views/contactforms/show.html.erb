@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @contactform.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @contactform.body %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @contactform.email %>
+</p>
+
+<%= link_to 'Edit', edit_contactform_path(@contactform) %> |
+<%= link_to 'Back', contactforms_path %>

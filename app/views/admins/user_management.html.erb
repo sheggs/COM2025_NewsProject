@@ -1,0 +1,17 @@
+<%= link_to "Back", admin_index_path %>
+<div class = "table_container">
+	<table class = "user_management"><tr>
+		<th>Username</th>
+		<th>Email</th>
+		<th>is Admin?</th>
+		<th>Manage User</th></tr>
+		<% @allUserData.each do |f| %>
+			<tr>
+				<th><%= f.name %></th>
+				<th><%= f.email %></th>
+				<th><%= f.admin %></th>
+				<th><%= content_tag :a, "Manage User", :href => "/admin/user_edit/"+ f.id.to_s,:icon =>"",:class =>"btn btn-danger"%></th>
+			</tr>
+		<% end %>
+	</table>
+</div>

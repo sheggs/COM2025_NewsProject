@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Contactforms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contactforms.each do |contactform| %>
+      <tr>
+        <td><%= contactform.title %></td>
+        <td><%= contactform.body %></td>
+        <td><%= contactform.email %></td>
+        <td><%= link_to 'Show', contactform %></td>
+        <td><%= link_to 'Edit', edit_contactform_path(contactform) %></td>
+        <td><%= link_to 'Destroy', contactform, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contactform', new_contactform_path %>

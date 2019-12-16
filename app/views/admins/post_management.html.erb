@@ -1,0 +1,20 @@
+<%= link_to "Back", admin_index_path %>
+<div class = "table_container">
+	<table class = "user_management"><tr>
+		<th>Post Title</th>
+		<th>Creation Date</th>
+		<th>Creator Email</th>
+		<th>Creator ID</th>
+		<th>Edit</th></tr>
+		<% @allPosts.each do |f| %>
+			<tr>
+				<th><%= f.title %></th>
+				<th><%= f.created_at.strftime("%A %d %B %Y") %></th>
+				<th><%= UsersController.getUserData(f.user_id).email %></th>
+				<th><%= f.user_id %></th>
+
+				<th><%= content_tag :a, "Manage Post", :href => "/admin/post_edit/"+ f.id.to_s,:icon =>"",:class =>"btn btn-danger"%></th>
+			</tr>
+		<% end %>
+	</table>
+</div>

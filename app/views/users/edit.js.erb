@@ -1,0 +1,29 @@
+error = ""
+$(document).ready(function() {
+	if("<%= j @respond %>" == "true"){
+			$(".success").text("User succesfully edited " + "<%= j @urgentMessage  %>")
+			$(".success").attr("style","false");
+
+	}else if("<%= j @respond %>" == "false"){
+			$(".error").attr("style","false");
+			<% if(flash[:errors] != nil)%>
+				<% flash[:errors].each do |x| %>
+					error += "<%= x[:t] %> "
+					error += "<%= x[:msg] %>, "
+					console.log(error)
+
+				<% end %>
+			<% end %>
+
+			$(".error").text("Error(s) has occured : " + "<%= j @urgentMessage  %> | " + error)
+
+	}
+
+	delete_modal = "<%= j @modal %>"
+	if(delete_modal == "true"){
+		$('#deleteModalCenter').modal('show');
+	}
+	
+})
+
+alert("hi")

@@ -1,0 +1,52 @@
+<%= link_to "Back", admin_post_management_path %>
+
+<% selectedPost = PostsController.getPost(params[:id])%>
+<%if(selectedPost == nil) %>
+<script type="text/javascript">
+    window.location.href="/"  // put your correct path in a string here
+  </script>
+<%end%>
+
+
+<div class = "success alert alert-primary" style = "display: none;"></div>
+<div class = "error alert alert-danger" style = "display: none;"></div>
+
+<%= form_for(selectedPost, url: posts_url + "/" + selectedPost.id.to_s, remote:true) do |f| %>
+	<p>
+		<%= f.label :title %><br>
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :body %><br>
+		<%= f.text_field :body %>
+	</p> 
+	<input type = "hidden" value="<%= params[:id] %>" name = "post[id]">
+	<label>Delete User: </label>
+	<input type = "checkbox" name = "post[delete]">
+	<p>
+	<%= f.label :important %>
+	<%= f.check_box :important %>	
+	</p>
+	<p>
+		<%= f.submit %>
+	</p> 
+  
+<% end %>
+<div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLongTitle">FYI: Urgent</h5>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Post has been removed from the system.
+      </div>
+      <div class="modal-footer">
+        <%= content_tag :a, "Close", :href => admin_post_management_path,:icon =>"",:class =>"btn btn-secondary"%>
+
+      </div>
+    </div>
+  </div>
+</div>

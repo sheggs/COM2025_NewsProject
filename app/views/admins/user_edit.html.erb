@@ -1,0 +1,52 @@
+<%= link_to "Back", admin_user_management_path %>
+
+<% selectedUser = UsersController.getUserData(params[:id])%>
+<%if(selectedUser == nil) %>
+<script type="text/javascript">
+    window.location.href="/"  // put your correct path in a string here
+  </script>
+<%end%>
+
+
+<div class = "success alert alert-primary" style = "display: none;"></div>
+<div class = "error alert alert-danger" style = "display: none;"></div>
+
+<%= form_for(selectedUser, url: edit_user_registration_url, remote:true) do |f| %>
+	<p>
+		<%= f.label :name %><br>
+		<%= f.text_field :name %>
+	</p>
+	<p>
+		<%= f.label :email %><br>
+		<%= f.text_field :email %>
+	</p> 
+	<input type = "hidden" value="<%= params[:id] %>" name = "user[id]">
+	<label>Delete User: </label>
+	<input type = "checkbox" name = "user[delete]">
+	<p>
+	<%= f.label :admin %>
+	<%= f.check_box :admin %>	
+	</p>
+	<p>
+		<%= f.submit %>
+	</p> 
+  
+<% end %>
+<div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLongTitle">FYI: Urgent</h5>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        User has been removed from the system.
+      </div>
+      <div class="modal-footer">
+        <%= content_tag :a, "Close", :href => admin_user_management_path,:icon =>"",:class =>"btn btn-secondary"%>
+
+      </div>
+    </div>
+  </div>
+</div>

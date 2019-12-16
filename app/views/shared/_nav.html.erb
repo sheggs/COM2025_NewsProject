@@ -1,8 +1,8 @@
 	<div class="navbar">
 	  <h1 class = "title_padding">News Site</h1>
-	  <% array = [["Home","/","fas fa-home","",""],["Search","#","fas fa-home","",""],["Login","/login","fas fa-home","btn btn-primary",""] ] %>
+	  <% array = [["Home","/","fas fa-home","",""],["Login","/login","fas fa-home","btn btn-primary",""],["Contact Us","/contactforms/new","fas fa-home","btn btn-danger",""] ] %>
 	  <% if(current_user != nil) %>
-	  <% array = [["Home","/","fas fa-home","",""],["Search","#","fas fa-home","",""],["Dashboard","/dashboard","","",""],["custom_override","","","",""],["Logout","/users/sign_out","fas fa-home","btn btn-danger","delete"] ] %>
+	  <% array = [["Home","/","fas fa-home","",""],["Dashboard","/dashboard","","",""],["custom_override","","","",""],["Contact Us","/contactforms/new","fas fa-home","btn btn-danger",""],["Logout","/users/sign_out","fas fa-home","btn btn-danger","delete"] ] %>
 	  <%end%>
 	  <div class="navitem">
 	 	 <!-- <a :href="tab.href"><i :class="tab.icon"> </i></a> -->
@@ -22,10 +22,7 @@
 	   	<%end %>
 	   	<%@queryUser = User.find_by(id: current_user)%>
 	   	<% if(@queryUser != nil) %>
-	   		<%if(@queryUser.admin) %>
-	   			<%= content_tag :a, "Admin Dashboard", :href => "/admin",:icon =>"",:class => ""%>
-
-	   		<%end%>
+	   			<%= content_tag :a, "Admin Dashboard", :href => "/admin/index",:icon =>"",:class => ""%>
 	   		<%end%>
 
 	  </div>
