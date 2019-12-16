@@ -1,9 +1,10 @@
+ <% local_posts = t :posts %>
 <div class = "displayComments">
 		<p> Comments: </p>
 		<% @post.comments.each do |g| %>
 		<% if(current_user != nil) %>
 			<div class = "commentContainer">
-					<p style= "float:right;"> Likes: <%= g.likes %> </p>
+					<p style= "float:right;"> <%= local_posts[:likes] %> <%= g.likes %> </p>
 					<% button_text = "Like" %>
 					<% if(CommentLikesController.alreadyLiked(current_user,g)) %>
 						<% button_text = "Unlike" %>

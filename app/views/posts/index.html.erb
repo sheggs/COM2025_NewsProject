@@ -26,6 +26,7 @@
 </div>
 </div>
  -->
+ <% local_posts = t :posts %>
 <% if(flash[:success] != nil) %>
       <div class = "alert alert-danger" style ="margin: 2vh 0.5vw;"><%= flash[:success] %></div>
 <% end %>
@@ -37,13 +38,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class = "breaking">
-      <b>BREAKING NEWS</b>
+      <b><%= local_posts[:breaking] %></b>
     </div>
             
-      <% x = 0; %>asdasdasdqwe123
+      <% x = 0; %>
       <%= @breakingPosts.length %>
       <% @breakingPosts.each do |breaking| %>
-        <% url = "/view?id=" + breaking.id.to_s %>
+        <% url = "/posts/" + breaking.id.to_s %>
         <% if x == 0 %>
         <div class = "carousel-item active">
           <div class = "BreakingNewsContainer">
@@ -94,11 +95,11 @@
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style = "">
     <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
-    <span class="sr-only">Previous</span>
+    <span class="sr-only"><%= local_posts[:prev] %></span>
   </a>
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
+    <span class="sr-only"><%= local_posts[:next] %></span>
   </a>
 </div>
 
@@ -110,7 +111,7 @@
 
 <% index = 0 %>
 <% @normalPosts.each do |post| %>
-<% url = "/view?id=" + post.id.to_s %>
+        <% url = "/posts/" + post.id.to_s %>
 <div class = "cardWrapper" style = "margin-top: 55vh;">
   <div class="cardcontainer" >
         <div class="card_outline">
@@ -133,9 +134,9 @@
                 visible="false"
               ><%= post.summary %></h1>
             </div><br>
-            <button onclick="hide(<%= index %>)">Hide Description</button>
+            <button onclick="hide(<%= index %>)"><%= local_posts[:hide] %></button>
 
-            <a class = "btn btn-primary" href ="<%= url %>">Read More</a>
+            <a class = "btn btn-primary" href ="<%= url %>"><%= local_posts[:next] %></a>
           </div>
       </div>
   </div>

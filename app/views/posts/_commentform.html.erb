@@ -1,8 +1,10 @@
+ <% local_posts = t :posts %>
+
 	<div class = "comment-form">
-		<% url = "/posts/" + params[:id] + "/comments"%>
+		<% url = "/posts/" + params[:id] + "/comments" %>
  		<form method="POST" action = "<%= url %>">
 			<input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
-			<label>New Comment</label>
+			<label><%= local_posts[:new_comment] %></label>
 			<div class = "textarea-container">
 				<input type = "hidden" name = "comment[post_id]" value = "<%= post.id %>">
 				<textarea class="form-control" name = "comment[comment]"></textarea>

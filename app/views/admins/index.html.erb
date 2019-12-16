@@ -1,6 +1,8 @@
-<h2 id = "admin_title"> Administrator Panel </h2>
+ <% local_admin = t :admin %>
+
+<h2 id = "admin_title"> <%= local_admin[:title] %> </h2>
 <header class = "admin_link_container">
-	<% tabs = [['User Management','/admin/user_management'],['Post Management','/admin/post_management'],['Create Post','/posts/new']] %>
+	<% tabs = [[local_admin[:user_management],'/admin/user_management'],[local_admin[:post_management],'/admin/post_management'],[local_admin[:create_post],'/posts/new']] %>
 	<% x = 0; %>
 	<% while(x < tabs.length) %>
 		<div class = "admin_link_wrapper">

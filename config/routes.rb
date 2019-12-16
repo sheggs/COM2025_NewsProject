@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'errors/notfound'
+  get 'errors/forbidden'
   resources :contactforms
 	post'/comment/like' => 'comments#likepost'
 	root 'posts#index'

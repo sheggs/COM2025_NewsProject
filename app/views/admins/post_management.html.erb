@@ -1,10 +1,12 @@
 <%= link_to "Back", admin_index_path %>
+ <% local_admin = t :admin %>
+
 <div class = "table_container">
 	<table class = "user_management"><tr>
-		<th>Post Title</th>
-		<th>Creation Date</th>
-		<th>Creator Email</th>
-		<th>Creator ID</th>
+		<th><%= local_admin[:post_title]%></th>
+		<th><%= local_admin[:creation_date]%></th>
+		<th><%= local_admin[:creator_email]%></th>
+		<th><%= local_admin[:creator_id]%></th>
 		<th>Edit</th></tr>
 		<% @allPosts.each do |f| %>
 			<tr>
@@ -13,7 +15,7 @@
 				<th><%= UsersController.getUserData(f.user_id).email %></th>
 				<th><%= f.user_id %></th>
 
-				<th><%= content_tag :a, "Manage Post", :href => "/admin/post_edit/"+ f.id.to_s,:icon =>"",:class =>"btn btn-danger"%></th>
+				<th><%= content_tag :a, local_admin[:manage_post], :href => "/admin/post_edit/"+ f.id.to_s,:icon =>"",:class =>"btn btn-danger"%></th>
 			</tr>
 		<% end %>
 	</table>

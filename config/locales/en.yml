@@ -30,4 +30,37 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  posts: 
+    breaking: "BREAKING NEWS"
+    prev: "Previous"
+    next: "Next"
+    hide: "Hide Description"
+    read_more: "Read More"
+    new_comment: "New Comment"
+    likes: "Likes: "
+  users:
+    avatar: "Avatar"
+    title: "Dashboard"
+    upload_text: "Upload avatar image"
+    user_info_title: "User Information"
+    username: "Username"
+    login: "Login"
+    register: "Register"
+    remember_me: "Remember Me"
+  admin:
+    title: "Administrator Panel"
+    user_management: "User Management"
+    post_management: "Post Management"
+    create_post: "Create Post"
+    username: "Username"
+    email: "Email"
+    isAdmin: "is Admin?"
+    manage_user: "Manage User"
+    post_title: "Post Title"
+    creation_date: "Creation Date"
+    creator_email: "Creator Email"
+    creator_id: "Creator ID"
+    manage_post: "Manage Posts"
+
+
+

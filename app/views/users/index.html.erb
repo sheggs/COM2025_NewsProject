@@ -1,9 +1,11 @@
+ <% local_posts = t :users %>
 
 <%if(current_user)%>
    <script> window.location.href = "/dashboard" </script>
 <%end%>
   
 
+ <% local_posts = t :users %>
 
 
 
@@ -22,7 +24,7 @@
       <input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
 
 		 	<div class = "loginWrapper">
-	<h1> Login: </h1>
+	<h1> <%= local_posts[:login] %></h1>
 
 <div class="input-group mb-3 inputContainer">
   <div class="input-group-prepend">
@@ -39,7 +41,7 @@
 </div>
 <div class="input-group mb-2">
 
-  <label>Remember Me: </label>
+  <label><%= local_posts[:remember_me] %></label>
   <input type="checkbox" name = "user[remember_me]" class="form-control" >
 </div>
 
@@ -54,10 +56,10 @@
 
 
   <div class = "registrationPanel">
-         <form method = "GET" action = "#">
+         <form method = "POST" action = "/users">
           <input type = "hidden" value = "<%= form_authenticity_token %>" name = "authenticity_token">
         <div class = "registrationWrapper">
-  <h1> Register: </h1>
+  <h1> <%= local_posts[:register] %></h1>
 
 <div class="input-group mb-3 inputContainer">
   <div class="input-group-prepend">

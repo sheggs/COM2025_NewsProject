@@ -2,6 +2,10 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   # GET /comments
   # GET /comments.json
+
+  def self.getComments(post_id)
+    return Comment.find_by(post_id: post_id)
+  end
   def index
     @comments = Comment.all
   end
